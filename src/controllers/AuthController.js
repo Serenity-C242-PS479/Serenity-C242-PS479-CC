@@ -1,6 +1,6 @@
 const db = require('../models')
 const Boom = require('@hapi/boom')
-const Auth = require('../helper/auth')
+const Auth = require('../helper/AuthenticationHelper')
 
 const Users = db.users;
 
