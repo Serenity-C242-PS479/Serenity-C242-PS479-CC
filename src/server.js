@@ -1,4 +1,5 @@
 const Hapi = require("@hapi/hapi");
+const RoutesPlugin = require('./routes')
 
 const init = async () => {
     const server = Hapi.server({
@@ -6,21 +7,15 @@ const init = async () => {
       host: "localhost",
     });
 
-    server.route({
-        method: "GET",
-        path: "/",
-        handler: (request, h) => {
-          return "Hello World !";
-        },
-      });
-  
+    await server.register(RoutesPlugin)
+
     await server.start();
     console.log(`Server started on: ${server.info.uri}`);
 };
-  
-init();
 
 process.on("unhandledRejection", (err) => {
     console.log(err);
     process.exit(1);
 });
+
+init();
