@@ -1,5 +1,7 @@
 const AuthController = require('./controllers/AuthController');
 
+const AuthValidator = require('./validators/AuthValidator');
+
 const routes = [
     {
         method: "GET",
@@ -15,7 +17,7 @@ const routes = [
         options: {
             auth: false,
             validate: {
-                payload: Validator.registerSchema
+                payload: AuthValidator.registerSchema
             }
         }
     },
@@ -26,7 +28,7 @@ const routes = [
         options: {
             auth: false,
             validate: {
-                payload: Validator.loginSchema
+                payload: AuthValidator.loginSchema
             }
         }
     },
