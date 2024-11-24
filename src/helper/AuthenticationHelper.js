@@ -13,11 +13,11 @@ const comparePassword = async (password, hash) => {
 }
 
 const generateAccessToken = (payload) => {
-    return jwt.sign(payload, secretKey, {expiresIn: '1m'});
+    return jwt.sign(payload, secretKey, {expiresIn: '7d'});
 };
 
 const generateRefreshToken = (payload) => {
-    return jwt.sign(payload, refreshSecretKey, {expiresIn: '15m'});
+    return jwt.sign(payload, refreshSecretKey, {expiresIn: '30d'});
 };
 
 const verifyRefreshToken = (refreshToken) => {
