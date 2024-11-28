@@ -17,14 +17,26 @@ module.exports = (sequelize, DataTypes) => {
             email: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                unique: true
+                unique: true,
+                validate: {
+                    isEmail: {
+                        msg: "Must be a valid email address"
+                    }
+                }
             },
             password: {
                 type: DataTypes.STRING,
-                allowNull: false
+                allowNull: false,
+                validate: {
+                    len: {
+                        args: [6, 100],
+                        msg: "Password must be at least 6 characters long"
+                    }
+                }
             }
         },
         {
+            timestamps: true,
             hooks: {
                 beforeCreate: async(user, options) => {
                     const hashedPassword = await bcrypt.hash(user.password, saltRounds);
