@@ -20,6 +20,8 @@ const init = async () => {
         }
     });
 
+    server.auth.default('jwt')
+
     await server.register(RoutesPlugin)
 
     await server.start();

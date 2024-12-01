@@ -16,7 +16,10 @@ const AuthController = {
             else {
                 const user = await Users.create({name,email,password});
                 
-                return h.response(user).code(201);
+                return h.response({
+                    ...user.toJSON(),
+                    status: "success",
+                }).code(201);
             }
         }
         catch(error){
@@ -44,9 +47,10 @@ const AuthController = {
             const refreshToken = Auth.generateRefreshToken(payload);
 
             return h.response({
-                message: "Successfully logged in",
+                ...user.toJSON(),
                 accessToken,
-                refreshToken
+                refreshToken,
+                status: "success",
             }).code(200);
         }
         catch(error){
@@ -64,7 +68,7 @@ const AuthController = {
             const newAccessToken = Auth.generateAccessToken({ id: decoded.id, name: decoded.name });
 
             return h.response({
-                message: "Access token refreshed",
+                status: "success",
                 accessToken: newAccessToken
             }).code(200);
         } catch (error) {
