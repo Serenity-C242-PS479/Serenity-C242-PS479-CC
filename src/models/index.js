@@ -19,7 +19,13 @@ const db = {};
 db.Sequelize = Sequelize
 db.sequelize = sequelize
 
+// Models
 db.users = require('./users.js')(sequelize, DataTypes);
+db.challenges = require('./challenges.js')(sequelize, DataTypes);
+
+// Define relationships
+db.users.hasMany(db.challenges, { foreignKey: "userId", as: "challenges" });
+db.challenges.belongsTo(db.users, { foreignKey: "userId", as: "user" });
 
 db.sequelize.sync({force: false}).then(() => {
     console.log('Re-sync done!');
