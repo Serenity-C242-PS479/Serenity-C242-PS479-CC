@@ -7,14 +7,13 @@ const Users = db.users;
 const AuthController = {
     async register(request, h){
         try {
-            const {name, email, password} = request.payload;
-
-            const isUserExist = await Users.findOne({where: {email: email}})
-            if(isUserExist){
+            const { name, email, password, age, gender } = request.payload;
+    
+            const isUserExist = await Users.findOne({ where: { email: email } });
+            if (isUserExist) {
                 return Boom.badRequest("User already registered");
-            }
-            else {
-                const user = await Users.create({name,email,password});
+            } else {
+                const user = await Users.create({ name, email, password, age, gender });
                 
                 return h.response({
                     ...user.toJSON(),
@@ -22,7 +21,7 @@ const AuthController = {
                 }).code(201);
             }
         }
-        catch(error){
+        catch (error) {
             return Boom.internal(error.message);
         }
     },

@@ -33,6 +33,29 @@ module.exports = (sequelize, DataTypes) => {
                         msg: "Password must be at least 6 characters long"
                     }
                 }
+            },
+            age: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                validate: {
+                    min: {
+                        args: 1,
+                        msg: "Age must be greater than 0"
+                    },
+                    max: {
+                        args: 120,
+                        msg: "Age must be less than or equal to 120"
+                    }
+                }
+            },
+            gender: {
+                type: DataTypes.ENUM('Male', 'Female', 'Other'),
+                allowNull: false
+            },
+            photo_profile: {
+                type: DataTypes.STRING,
+                allowNull: true, // Nilai awal bisa null
+                defaultValue: null
             }
         },
         {
