@@ -17,7 +17,7 @@ const AuthController = {
                 
                 return h.response({
                     data: {
-                        id: user.id,
+                        user_id: user.id,
                         name: user.name,
                         email: user.email,
                         password: user.password,
@@ -55,7 +55,7 @@ const AuthController = {
 
             return h.response({
                 data: {
-                    id: user.id,
+                    user_id: user.id,
                     name: user.name,
                     email: user.email,
                     password: user.password,
@@ -103,7 +103,7 @@ const AuthController = {
             return h.response({
                 status: "success",
                 data: {
-                    id: user.id,
+                    user_id: user.id,
                     name: user.name,
                     email: user.email,
                     password: user.password,

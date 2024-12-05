@@ -6,12 +6,11 @@ const Challenges = db.challenges;
 const ChallengeController = {
     async createChallenge(request, h) {
         try {
-            const { userId, title, startHour, endHour, status } = request.payload;
+            const { user_id, title, start_hour, end_hour, status } = request.payload;
 
-            const challenge = await Challenges.create({ userId, title, startHour, endHour, status });
+            const challenge = await Challenges.create({ user_id, title, start_hour, end_hour, status });
 
             return h.response({
-                ...challenge.toJSON(),
                 status: "success",
             }).code(201);
         } catch (error) {
@@ -22,16 +21,16 @@ const ChallengeController = {
 
     async getChallengesByUser(request, h) {
         try {
-            const { userId } = request.params;
+            const { user_id } = request.params;
 
-            const challenges = await Challenges.findAll({ where: { userId } });
+            const challenges = await Challenges.findAll({ where: { user_id } });
 
             if (challenges.length === 0) {
                 return Boom.notFound("No challenges found for this user");
             }
 
             return h.response({
-                challenges,
+                datas: challenges,
                 status: "success",
             }).code(200);
         } catch (error) {
@@ -43,7 +42,7 @@ const ChallengeController = {
     async updateChallenge(request, h) {
         try {
             const { id } = request.params;
-            const { title, startHour, endHour, status } = request.payload;
+            const { title, start_hour, end_hour, status } = request.payload;
 
             const challenge = await Challenges.findByPk(id);
 
@@ -51,10 +50,9 @@ const ChallengeController = {
                 return Boom.notFound("Challenge not found");
             }
 
-            await challenge.update({ title, startHour, endHour, status });
+            await challenge.update({ title, start_hour, end_hour, status });
 
             return h.response({
-                ...challenge.toJSON(),
                 status: "success",
             }).code(200);
         } catch (error) {
@@ -76,7 +74,6 @@ const ChallengeController = {
             await challenge.destroy();
 
             return h.response({
-                message: "Challenge deleted successfully",
                 status: "success",
             }).code(200);
         } catch (error) {

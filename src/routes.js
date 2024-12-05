@@ -1,8 +1,10 @@
 const AuthController = require('./controllers/AuthController');
+const ChallengeController = require('./controllers/ChallengeController');
 
 const AuthValidator = require('./validators/AuthValidator');
 
 const routes = [
+    // Root Route
     {
         method: "GET",
         path: "/",
@@ -16,6 +18,8 @@ const routes = [
             auth: false
         }
     },
+
+    // User Route
     {
         method: 'POST',
         path: '/api/v1/register',
@@ -59,6 +63,30 @@ const routes = [
             }).code(200);
         }
     },
+
+    // Challenge Route
+    {
+        method: 'POST',
+        path: '/api/v1/{user_id}/challenges',
+        handler: ChallengeController.createChallenge,
+    },
+    {
+        method: 'GET',
+        path: '/api/v1/{user_id}/challenges/',
+        handler: ChallengeController.getChallengesByUser,
+    },
+    {
+        method: 'PUT',
+        path: '/api/v1/{user_id}/challenges/{id}',
+        handler: ChallengeController.updateChallenge,
+    },
+    {
+        method: 'DELETE',
+        path: '/api/v1/{user_id}/challenges/{id}',
+        handler: ChallengeController.deleteChallenge,
+    },
+
+    // 404 Not Found Route
     {
         method: 'GET',
         path: '/{any*}',

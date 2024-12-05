@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 autoIncrement: true
             },
-            userId: {
+            user_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
@@ -24,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
                     }
                 }
             },
-            startHour: {
+            start_hour: {
                 type: DataTypes.TIME,
                 allowNull: false
             },
-            endHour: {
+            end_hour: {
                 type: DataTypes.TIME,
                 allowNull: false
             },
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Challenge.associate = (models) => {
         Challenge.belongsTo(models.users, {
-            foreignKey: "userId",
+            foreignKey: "user_id",
             as: "user"
         });
     };
