@@ -46,6 +46,11 @@ const routes = [
     },
     {
         method: 'GET',
+        path: '/api/v1/profile/{id}',
+        handler: AuthController.getProfile
+    },    
+    {
+        method: 'GET',
         path: '/api/v1/home',
         handler: async(request, h) => {
             return h.response({

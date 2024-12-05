@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             photo_profile: {
                 type: DataTypes.STRING,
-                allowNull: true, // Nilai awal bisa null
+                allowNull: true,
                 defaultValue: null
             }
         },

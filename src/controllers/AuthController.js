@@ -16,7 +16,15 @@ const AuthController = {
                 const user = await Users.create({ name, email, password, age, gender });
                 
                 return h.response({
-                    ...user.toJSON(),
+                    data: {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        password: user.password,
+                        age: user.age,
+                        gender: user.gender,
+                        photo_profile: user.photo_profile
+                    },
                     status: "success",
                 }).code(201);
             }
@@ -46,7 +54,15 @@ const AuthController = {
             const refreshToken = Auth.generateRefreshToken(payload);
 
             return h.response({
-                ...user.toJSON(),
+                data: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    age: user.age,
+                    gender: user.gender,
+                    photo_profile: user.photo_profile
+                },
                 accessToken,
                 refreshToken,
                 status: "success",
@@ -75,6 +91,32 @@ const AuthController = {
             return Boom.unauthorized("Invalid or expired refresh token");
         }
     },
+    async getProfile(request, h){
+        try {
+            const { id } = request.params;
+            const user = await Users.findByPk(id);
+
+            if (!user) {
+                return Boom.notFound("User not found");
+            }
+
+            return h.response({
+                status: "success",
+                data: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    age: user.age,
+                    gender: user.gender,
+                    photo_profile: user.photo_profile
+                },
+            }).code(200);
+        } catch (error) {
+            console.error(error);
+            return Boom.internal(error.message);
+        }
+    }
 };
 
 module.exports = AuthController;
