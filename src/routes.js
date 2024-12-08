@@ -3,6 +3,8 @@ const ChallengeController = require('./controllers/ChallengeController');
 
 const AuthValidator = require('./validators/AuthValidator');
 
+const path = require('path'); // Pastikan path diimpor
+
 const routes = [
     // Root Route
     {
@@ -63,6 +65,33 @@ const routes = [
             }).code(200);
         }
     },
+    {
+        method: 'PUT',
+        path: '/api/v1/profile/{id}',
+        handler: AuthController.editProfile,
+        options: {
+            auth: 'jwt',
+            validate: {
+                payload: AuthValidator.editProfileSchema,
+            },
+            payload: {
+                output: 'stream',
+                parse: true,
+                allow: 'multipart/form-data',
+                multipart: true
+            },
+        },
+    },
+    {
+        method: 'GET',
+        path: '/images/{filename}',
+        handler: {
+            directory: {
+                path: path.join(__dirname, 'images'),
+                redirectToSlash: true,
+            }
+        }
+    },       
 
     // Challenge Route
     {

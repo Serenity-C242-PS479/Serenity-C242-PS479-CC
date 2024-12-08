@@ -2,6 +2,12 @@ const db = require('../models')
 const Boom = require('@hapi/boom')
 const Auth = require('../helper/AuthenticationHelper')
 
+const fs = require('fs');
+const path = require('path');
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
+
 const Users = db.users;
 
 const AuthController = {
@@ -116,7 +122,60 @@ const AuthController = {
             console.error(error);
             return Boom.internal(error.message);
         }
-    }
+    },
+    async editProfile(request, h) {
+        try {
+            const { id } = request.params;
+            const { name, email, password, age, gender } = request.payload;
+    
+            const user = await Users.findByPk(id);
+            if (!user) {
+                return Boom.notFound("User not found");
+            }
+    
+            let hashedPassword = user.password;
+            if (password) {
+                hashedPassword = await bcrypt.hash(password, saltRounds);
+            }
+    
+            let photoPath = user.photo_profile;
+            if (request.payload.photo) {
+                const file = request.payload.photo;
+                const fileName = `user-${id}-${Date.now()}-${file.hapi.filename}`;
+                const filePath = path.join(__dirname, '..', 'images', fileName);
+    
+                const fileStream = fs.createWriteStream(filePath);
+                file.pipe(fileStream);
+    
+                photoPath = `/images/${fileName}`;
+            }
+    
+            await user.update({
+                name: name || user.name,
+                email: email || user.email,
+                password: hashedPassword,
+                age: age || user.age,
+                gender: gender || user.gender,
+                photo_profile: photoPath,
+            });
+    
+            return h.response({
+                status: "success",
+                message: "Profile updated successfully",
+                data: {
+                    user_id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    age: user.age,
+                    gender: user.gender,
+                    photo_profile: photoPath,
+                },
+            }).code(200);
+        } catch (error) {
+            console.error(error);
+            return Boom.internal(error.message);
+        }
+    }    
 };
 
 module.exports = AuthController;

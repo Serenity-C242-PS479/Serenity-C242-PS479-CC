@@ -4,12 +4,15 @@ const RoutesPlugin = require('./routes');
 const Auth = require('./helper/AuthenticationHelper');
 const Jwt = require('hapi-auth-jwt2');
 
+const Inert = require('@hapi/inert');
+
 const init = async () => {
     const server = Hapi.server({
       port: 3000,
       host: "localhost",
     });
 
+    await server.register(Inert);
     await server.register(Jwt);
 
     server.auth.strategy('jwt','jwt', {
