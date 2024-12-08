@@ -6,6 +6,10 @@ const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcrypt');
 
+const { Storage } = require('@google-cloud/storage');
+const storage = new Storage();
+const bucket = storage.bucket('serenity_storage');
+
 const saltRounds = 10;
 
 const Users = db.users;
@@ -128,11 +132,13 @@ const AuthController = {
             const { id } = request.params;
             const { name, email, password, age, gender } = request.payload;
     
+            // Cek apakah user ada
             const user = await Users.findByPk(id);
             if (!user) {
                 return Boom.notFound("User not found");
             }
     
+            // Hash password jika diubah
             let hashedPassword = user.password;
             if (password) {
                 hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -141,41 +147,75 @@ const AuthController = {
             let photoPath = user.photo_profile;
             if (request.payload.photo) {
                 const file = request.payload.photo;
-                const fileName = `user-${id}-${Date.now()}-${file.hapi.filename}`;
-                const filePath = path.join(__dirname, '..', 'images', fileName);
+                const fileName = `images/users/user-${id}-${Date.now()}-${file.hapi.filename}`;  // Menyimpan di folder images/users/
     
-                const fileStream = fs.createWriteStream(filePath);
-                file.pipe(fileStream);
+                // Upload gambar ke Google Cloud Storage
+                const blob = bucket.file(fileName);
+                const blobStream = blob.createWriteStream({
+                    resumable: false,
+                    contentType: file.hapi.headers['content-type'],
+                });
     
-                photoPath = `/images/${fileName}`;
+                // Menggunakan Promise untuk menunggu hingga proses upload selesai
+                await new Promise((resolve, reject) => {
+                    file.pipe(blobStream)
+                        .on('finish', resolve) // Sukses
+                        .on('error', reject); // Gagal
+                });
+    
+                // Foto berhasil diupload
+                const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+    
+                // Update path gambar di database
+                await user.update({
+                    name: name || user.name,
+                    email: email || user.email,
+                    password: hashedPassword,
+                    age: age || user.age,
+                    gender: gender || user.gender,
+                    photo_profile: publicUrl,
+                });
+    
+                return h.response({
+                    status: "success",
+                    message: "Profile updated successfully",
+                    data: {
+                        user_id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        age: user.age,
+                        gender: user.gender,
+                        photo_profile: publicUrl,
+                    },
+                }).code(200);
+            } else {
+                // Jika tidak ada gambar yang diupload, hanya update data lainnya
+                await user.update({
+                    name: name || user.name,
+                    email: email || user.email,
+                    password: hashedPassword,
+                    age: age || user.age,
+                    gender: gender || user.gender,
+                });
+    
+                return h.response({
+                    status: "success",
+                    message: "Profile updated successfully",
+                    data: {
+                        user_id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        age: user.age,
+                        gender: user.gender,
+                        photo_profile: user.photo_profile,
+                    },
+                }).code(200);
             }
-    
-            await user.update({
-                name: name || user.name,
-                email: email || user.email,
-                password: hashedPassword,
-                age: age || user.age,
-                gender: gender || user.gender,
-                photo_profile: photoPath,
-            });
-    
-            return h.response({
-                status: "success",
-                message: "Profile updated successfully",
-                data: {
-                    user_id: user.id,
-                    name: user.name,
-                    email: user.email,
-                    age: user.age,
-                    gender: user.gender,
-                    photo_profile: photoPath,
-                },
-            }).code(200);
         } catch (error) {
             console.error(error);
             return Boom.internal(error.message);
         }
-    }    
+    }
 };
 
 module.exports = AuthController;
