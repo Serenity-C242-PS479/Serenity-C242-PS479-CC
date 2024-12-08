@@ -5,7 +5,8 @@ const dbConfig = require('../config');
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
     dialect: dbConfig.dialect,
-    operartorsAliases: false
+    operartorsAliases: false,
+    logging: false
 });
 
 sequelize.authenticate().then(() => {

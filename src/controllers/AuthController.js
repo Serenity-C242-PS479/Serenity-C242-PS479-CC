@@ -43,7 +43,7 @@ const AuthController = {
                 return Boom.notFound("User Not Found");
             }
 
-            const isValidPassword = Auth.comparePassword(password, user.password);
+            const isValidPassword = await Auth.comparePassword(password, user.password);
 
             if(!isValidPassword){
                 return Boom.badRequest("Invalid username or password");
