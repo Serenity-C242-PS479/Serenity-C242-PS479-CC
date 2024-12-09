@@ -6,8 +6,13 @@ const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcrypt');
 
+require('dotenv').config();
+
 const { Storage } = require('@google-cloud/storage');
-const storage = new Storage();
+const storage = new Storage({
+    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+    projectId: 'c242-ps479',
+  });
 const bucket = storage.bucket('serenity_storage');
 
 const saltRounds = 10;
