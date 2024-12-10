@@ -89,7 +89,7 @@ Ikuti langkah-langkah berikut untuk mengatur dan menjalankan proyek:
 ## 🔑 Authentication
 
 ### **1. Register User**
-**POST** `/register`  
+**POST** `/api/v1/register`  
 Endpoint ini digunakan untuk mendaftarkan pengguna baru.
 
 - **Request Body**:
@@ -118,8 +118,8 @@ Endpoint ini digunakan untuk mendaftarkan pengguna baru.
     }
     ```
 ### **2. Login User**
-**POST** `/login`  
-Endpoint ini digunakan untuk mendaftarkan pengguna baru.
+**POST** `/api/v1/login`  
+Endpoint ini digunakan untuk masuk ke akun yang sudah didaftarkan.
 
 - **Request Body**:
   ```json
@@ -142,26 +142,74 @@ Endpoint ini digunakan untuk mendaftarkan pengguna baru.
       },
     "accessToken": JWT Access Token,
     "refreshToken": JWT Refresh Token,
-      "status": "success"
+    "status": "success"
     }
     ```
- 
-### Profile
+    
+### **3. JWT Refresh Token**
+**POST** `/api/v1/refresh`  
+Endpoint ini digunakan untuk merefresh JWT Access Token.
 
-- **POST `/register`**: Registers a new user.
-    - Request: `{ "email": "user@example.com", "password": "password123", "name": "John Doe", "username": "johndoe" }`
-    - Response: `{ "error": false, "message": "User registered successfully" }`
+- **Request Body**:
+  ```json
+  {
+    "refreshToken": JWT Refresh Token
+  }
+  ```
+- **Response Body**:
+    ```json
+    {
+    "accessToken": JWT Access Token,
+    "status": "success"
+    }
+    ```
 
-- **POST `/login`**: Logs in a user.
-    - Request: `{ "email": "user@example.com", "password": "password123" }`
-    - Response: `{ "error": false, "message": "success", "loginResult": { "username": "johndoe", "name": "John Doe", "token": "jwt_token", "userID": "user_id" } }`
+## 👤 Profile
 
-### Challenge
+### **1. Get Profile**
+**POST** `/api/v1/profile/{{user_id}}`  
+Endpoint ini digunakan untuk mendapatkan informasi pengguna.
 
-- **POST `/stories`**: Adds a new story. Requires JWT authentication.
-    - Request: Form data with fields `storyTitle`, `storyDescription`, `lat`, `lon`, and `photo`.
-    - Response: `{ "error": false, "message": "success", "storyID": "story_id" }`
+- **Response Body**:
+  ```json
+  {
+    "status": "success",
+    "data": {
+        "user_id": 6,
+        "name": "My Name",
+        "email": "myeail@gmail.com",
+        "password": Encrypted Password,
+        "age": 25,
+        "gender": "Male",
+        "photo_profile": null
+    }
+  }
+  ```
 
-- **GET `/stories`**: Retrieves all stories.
-    - Request: Query parameters `page`, `size`, and `location`.
-    - Response: `{ "error": false, "message": "Stories fetched successfully", "listStory": [...] }`
+### **2. Update Profile**
+**PUT** `/api/v1/profile/{{user_id}}`
+Endpoint ini digunakan untuk mengupdate informasi pengguna.
+- **Request Body (Using Form Data)**:
+    ```bash
+    name="My New Name"
+    email="My New Email"
+    password="My New Password"
+    age="My New Age"
+    gender="My New Gender"
+    photo_profile="My New Photo Profile Path"
+    ```
+- **Response Body**:
+  ```json
+  {
+    "status": "success",
+    "data": {
+        "user_id": 1,
+        "name": "My New Name",
+        "email": "mynewemail@gmail.com",
+        "password": Encrypted Password,
+        "age": 30,
+        "gender": "Male",
+        "photo_profile": Photo Profile Path
+    }
+  }
+  ```
