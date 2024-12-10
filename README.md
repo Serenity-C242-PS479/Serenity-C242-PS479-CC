@@ -1,5 +1,16 @@
 # Serenity-C242-PS479-CC
 
+## Dependency Version Used
+
+- Node.js (20.18.0)
+- Node Package Manager (10.9.0)
+- PostgreSQL (17.0)
+- Google Cloud Storage (7.14.0)
+- Hapi (21.3.12)
+- Hapi Auth JWT-2 (10.7.0)
+- Sequelize (6.37.5)
+- Joi (17.13.3)
+
 ## 🚀 Cara Setup Project
 
 Ikuti langkah-langkah berikut untuk mengatur dan menjalankan proyek:
