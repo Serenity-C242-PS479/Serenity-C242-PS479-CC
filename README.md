@@ -169,7 +169,10 @@ Endpoint ini digunakan untuk merefresh JWT Access Token.
 ### **1. Get Profile**
 **POST** `/api/v1/profile/{{user_id}}`  
 Endpoint ini digunakan untuk mendapatkan informasi pengguna.
-
+- **Request Header**:
+  ```bash
+    Authorization: Bearer <<JWT ACCESS TOKEN>>
+  ```
 - **Response Body**:
   ```json
   {
@@ -189,6 +192,10 @@ Endpoint ini digunakan untuk mendapatkan informasi pengguna.
 ### **2. Update Profile**
 **PUT** `/api/v1/profile/{{user_id}}`
 Endpoint ini digunakan untuk mengupdate informasi pengguna.
+- **Request Header**:
+  ```bash
+    Authorization: Bearer <<JWT ACCESS TOKEN>>
+  ```
 - **Request Body (Using Form Data)**:
     ```bash
     name="My New Name"
