@@ -4,29 +4,11 @@
 
 Ikuti langkah-langkah berikut untuk mengatur dan menjalankan proyek:
 
-### 1. **Clone Repositori**
-Clone repositori ke komputer lokal Anda:
-```bash
-git clone https://github.com/username/project-name.git
-cd project-name
-npm install
-DB_NAME=serenity_db
-DB_USER=serenityadmin
-DB_PASSWORD=serenitypassword
-DB_HOST=127.0.0.1
-DB_PORT=5432
-JWT_SECRETKEY=serenitysecretkey
-JWT_REFRESH_SECRETKEY=serenityrefreshsecretkey
-GOOGLE_APPLICATION_CREDENTIALS=./service-account-key.json
-node src/server.js
-http://127.0.0.1:<PORT>
-```
-
 1. **Clone the Repository:**
 
     ```bash
-    git clone 
-    cd 
+    git clone https://github.com/Serenity-C242-PS479/Serenity-C242-PS479-CC.git serenity-backend
+    cd serenity-backend
     ```
 
 2. **Install Dependencies:**
