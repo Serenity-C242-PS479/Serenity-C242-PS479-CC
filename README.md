@@ -10,6 +10,7 @@
 - Hapi Auth JWT-2 (10.7.0)
 - Sequelize (6.37.5)
 - Joi (17.13.3)
+- Nodemon (3.1.7)
 
 ## 🚀 Cara Setup Project
 
@@ -81,3 +82,86 @@ Ikuti langkah-langkah berikut untuk mengatur dan menjalankan proyek:
 ├── package.json                      # File konfigurasi proyek Node.js
 ├── README.md                         # Dokumentasi proyek
 └── service-account-key.json          # File kredensial untuk layanan Google
+```
+
+## API Endpoints
+
+## 🔑 Authentication
+
+### **1. Register User**
+**POST** `/register`  
+Endpoint ini digunakan untuk mendaftarkan pengguna baru.
+
+- **Request Body**:
+  ```json
+  {
+    "name": "My Name",
+    "email": "myemail@gmail.com",
+    "password": "mypassword",
+    "age": 25,
+    "gender": "Male"
+  }
+  ```
+- **Response Body**:
+    ```json
+    {
+      "data": {
+          "user_id": 1,
+          "name": "My Name",
+          "email": "myemail@gmail.com",
+          "password": Encrypted Password,
+          "age": 25,
+          "gender": "Male",
+          "photo_profile": null
+      },
+      "status": "success"
+    }
+    ```
+### **2. Login User**
+**POST** `/login`  
+Endpoint ini digunakan untuk mendaftarkan pengguna baru.
+
+- **Request Body**:
+  ```json
+  {
+    "email": "myemail@gmail.com",
+    "password": "mypassword"
+  }
+  ```
+- **Response Body**:
+    ```json
+    {
+      "data": {
+          "user_id": 1,
+          "name": "My Name",
+          "email": "myemail@gmail.com",
+          "password": Encrypted Password,
+          "age": 25,
+          "gender": "Male",
+          "photo_profile": null
+      },
+    "accessToken": JWT Access Token,
+    "refreshToken": JWT Refresh Token,
+      "status": "success"
+    }
+    ```
+ 
+### Profile
+
+- **POST `/register`**: Registers a new user.
+    - Request: `{ "email": "user@example.com", "password": "password123", "name": "John Doe", "username": "johndoe" }`
+    - Response: `{ "error": false, "message": "User registered successfully" }`
+
+- **POST `/login`**: Logs in a user.
+    - Request: `{ "email": "user@example.com", "password": "password123" }`
+    - Response: `{ "error": false, "message": "success", "loginResult": { "username": "johndoe", "name": "John Doe", "token": "jwt_token", "userID": "user_id" } }`
+
+### Challenge
+
+- **POST `/stories`**: Adds a new story. Requires JWT authentication.
+    - Request: Form data with fields `storyTitle`, `storyDescription`, `lat`, `lon`, and `photo`.
+    - Response: `{ "error": false, "message": "success", "storyID": "story_id" }`
+
+- **GET `/stories`**: Retrieves all stories.
+    - Request: Query parameters `page`, `size`, and `location`.
+    - Response: `{ "error": false, "message": "Stories fetched successfully", "listStory": [...] }`
