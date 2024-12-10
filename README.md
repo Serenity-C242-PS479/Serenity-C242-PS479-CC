@@ -22,6 +22,46 @@ node src/server.js
 http://127.0.0.1:<PORT>
 ```
 
+1. **Clone the Repository:**
+
+    ```bash
+    git clone 
+    cd 
+    ```
+
+2. **Install Dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3. **Environment Variables:**
+
+    Create a `.env` file in the root directory and add the following variables:
+
+    ```env
+    DB_NAME=serenity_db
+    DB_USER=serenityadmin
+    DB_PASSWORD=serenitypassword
+    DB_HOST=127.0.0.1
+    DB_PORT=5432
+    JWT_SECRETKEY=serenitysecretkey
+    JWT_REFRESH_SECRETKEY=serenityrefreshsecretkey
+    GOOGLE_APPLICATION_CREDENTIALS=./service-account-key.json
+    ```
+
+4. **Service Account Key:**
+
+    Obtain your Firebase service account key file from the Google Cloud IAM and place it in the root directory of the project. Rename it to `service-account-key.json`.
+
+5. **Running the Application:**
+
+    ```bash
+    node src/server.js
+    ```
+
+    The application should now be running on `http://localhost:3000`.
+
 ## 📂 Struktur Direktori
 
 ```plaintext
