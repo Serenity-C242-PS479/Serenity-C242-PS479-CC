@@ -1,25 +1,26 @@
 # Serenity-C242-PS479-CC
 
-## How To Setup This Project
-1. Clone this repository
-2. Enter to the directory and npm install
-3. Create .env file
+## 🚀 Cara Setup Project
 
-Fill the .env file:
+Ikuti langkah-langkah berikut untuk mengatur dan menjalankan proyek:
 
-`DB_NAME =`
-
-`DB_USER =`
-
-`DB_PASSWORD =`
-
-`DB_HOST =`
-
-`DB_PORT =`
-
-`JWT_SECRETKEY =`
-
-`JWT_REFRESH_SECRETKEY =`
+### 1. **Clone Repositori**
+Clone repositori ke komputer lokal Anda:
+```bash
+git clone https://github.com/username/project-name.git
+cd project-name
+npm install
+DB_NAME=serenity_db
+DB_USER=serenityadmin
+DB_PASSWORD=serenitypassword
+DB_HOST=127.0.0.1
+DB_PORT=5432
+JWT_SECRETKEY=serenitysecretkey
+JWT_REFRESH_SECRETKEY=serenityrefreshsecretkey
+GOOGLE_APPLICATION_CREDENTIALS=./service-account-key.json
+node src/server.js
+http://127.0.0.1:<PORT>
+```
 
 ## 📂 Struktur Direktori
 
