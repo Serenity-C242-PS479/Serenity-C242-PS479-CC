@@ -220,3 +220,14 @@ Endpoint ini digunakan untuk mengupdate informasi pengguna.
     }
   }
   ```
+
+## Deployment
+To deploy this application using Google Cloud Run:
+
+### **1. Authenticate with Google Cloud**
+Ensure you have the Google Cloud SDK installed and authenticated:
+
+
+
+### **1. 🐋 **
+
