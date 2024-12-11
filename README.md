@@ -167,7 +167,7 @@ Endpoint ini digunakan untuk merefresh JWT Access Token.
 ## 👤 Profile
 
 ### **1. Get Profile**
-**POST** `/api/v1/profile/{{user_id}}`  
+**GET** `/api/v1/profile/{{user_id}}`  
 Endpoint ini digunakan untuk mendapatkan informasi pengguna.
 - **Request Header**:
   ```bash
@@ -218,6 +218,104 @@ Endpoint ini digunakan untuk mengupdate informasi pengguna.
         "gender": "Male",
         "photo_profile": Photo Profile Path
     }
+  }
+  ```
+
+## 📝 Challenge
+
+### **1. Get Challenge**
+**GET** `/api/v1/{{user_id}}/challenges/`  
+Endpoint ini digunakan untuk mendapatkan informasi challenge milik pengguna.
+- **Request Header**:
+  ```bash
+    Authorization: Bearer <<JWT ACCESS TOKEN>>
+  ```
+- **Response Body**:
+  ```json
+    {
+        "datas": [
+            {
+                "id": 6,
+                "user_id": 3,
+                "title": "Challenge 5",
+                "start_hour": "11:00:00",
+                "end_hour": "18:00:00",
+                "status": "On Progress",
+                "createdAt": "2024-12-11T16:41:11.929Z",
+                "updatedAt": "2024-12-11T16:41:11.929Z"
+            },
+            {
+                "id": 7,
+                "user_id": 3,
+                "title": "Challenge 5",
+                "start_hour": "11:00:00",
+                "end_hour": "18:00:00",
+                "status": "On Progress",
+                "createdAt": "2024-12-11T16:41:13.479Z",
+                "updatedAt": "2024-12-11T16:41:13.479Z"
+            }
+        ],
+        "status": "success"
+  }
+
+### **2. Create Challenge**
+**POST** `/api/v1/{{user_id}}/challenges`
+Endpoint ini digunakan untuk membuat challenge kepada pengguna.
+- **Request Header**:
+  ```bash
+    Authorization: Bearer <<JWT ACCESS TOKEN>>
+  ```
+- **Request Body (Using Form Data)**:
+    ```json
+    {
+        "user_id": 3,
+        "title": "Challenge 5",
+        "start_hour": "11:00",
+        "end_hour": "18:00",
+        "status": "On Progress"
+    }
+    ```
+- **Response Body**:
+  ```json
+  {
+    "status": "success",
+  }
+  ```
+
+### **3. Update Challenge**
+**PUT** `/api/v1/{{user_id}}/challenges/{{challenge_id}}`
+Endpoint ini digunakan untuk mengupdate informasi challenge milik pengguna.
+- **Request Header**:
+  ```bash
+    Authorization: Bearer <<JWT ACCESS TOKEN>>
+  ```
+- **Request Body (Using Form Data)**:
+    ```json
+    {
+        "title": "No Morning Scroll",
+        "start_hour": "07:00",
+        "end_hour": "09:00",
+        "status": "Passed"
+    }
+    ```
+- **Response Body**:
+  ```json
+  {
+    "status": "success",
+  }
+  ```
+
+### **4. Delete Challenge**
+**DELETE** `/api/v1/{{user_id}}/challenges/{{challenge_id}}`
+Endpoint ini digunakan untuk menghapus salah satu challenge milik pengguna.
+- **Request Header**:
+  ```bash
+    Authorization: Bearer <<JWT ACCESS TOKEN>>
+  ```
+- **Response Body**:
+  ```json
+  {
+    "status": "success",
   }
   ```
 
