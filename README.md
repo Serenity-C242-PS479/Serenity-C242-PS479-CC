@@ -319,13 +319,40 @@ Endpoint ini digunakan untuk menghapus salah satu challenge milik pengguna.
   }
   ```
 
-## Deployment
-To deploy this application using Google Cloud Run:
+## 🐋Deployment
+Untuk mendeploy aplikasi ini, gunakan cloud run:
 
-### **1. Authenticate with Google Cloud**
-Ensure you have the Google Cloud SDK installed and authenticated:
+### **1. Google Cloud Shell**
+Pastikan sudah clone projek ini dan masuk cloud shell di google console
+![image](https://github.com/user-attachments/assets/e3d1ee95-aad8-443b-ab5d-e4bb3496c840)
 
+### **2. Build and Submit the Docker Image**
+Gunakan Google Cloud Build to membuat dan push Docker image ke Google Container Registry:
 
+    gcloud builds submit --tag asia-southeast2-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/backend/serenity:1.0.0
 
-### **1. 🐋 **
+### **3. Deploy to Cloud Run**
+Deploy container menggunakan Cloud Run:
 
+    gcloud run deploy serenity-backend \
+    --image asia-southeast2-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/backend/serenity:1.0.0 \
+    --region asia-southeast2 \
+    --allow-unauthenticated \
+    --add-cloudsql-instances [PROJECT_ID]:[REGION]:[INSTANCE_NAME] \
+    --set-env-vars DB_HOST=/cloudsql/[PROJECT_ID]:[REGION]:[INSTANCE_NAME],DB_USER=[DB_USER],DB_PASSWORD=[DB_PASSWORD],DB_NAME=[DB_NAME],GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/iamkey.json,JWT_SECRETKEY=your_jwt_secret_key,JWT_REFRESH_SECRETKEY=your_jwt_refresh_secret_key
+    
+    GOOGLE_CLOUD_PROJECT            : nama project anda
+    REGION                          : region anda, misalnya asia-southeast2
+    PROJECT_ID                      : id projek anda
+    add-cloudsql-instances          : koneksi db anda, untuk project ini menggunanakan postgresql
+    INSTANCE_NAME                   : nama instance db postgresql anda
+    GOOGLE_APPLICATION_CREDENTIALS  : key iam anda berupa .json
+
+### **4. Access the API Backend:**
+Setelah proses deployment selesai, Google cloud run akan memberikan sebuah link yang bisa digunakan untuk backend aplikasi serenity:
+        
+    Deployment successful.
+    Service URL: https://YOUR_SERVICE_URL/
+
+## License
+This project is licensed under the MIT License.
