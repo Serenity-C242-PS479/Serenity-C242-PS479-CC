@@ -56,32 +56,32 @@ Ikuti langkah-langkah berikut untuk mengatur dan menjalankan proyek:
 
     The application should now be running on `http://localhost:3000`.
 
-## 📂 Struktur Direktori
+## 📂 Project Structure
 
 ```plaintext
-├── node_modules/                     # Folder dependensi Node.js
-├── src/                              # Folder utama untuk kode sumber
-│   ├── controllers/                  # Folder untuk controller
-│   │   ├── AuthController.js         # Controller untuk autentikasi
-│   │   └── ChallengeController.js    # Controller untuk fitur tantangan
-│   ├── helper/                       # Folder untuk fungsi/helper pendukung
-│   │   └── AuthenticationHelper.js   # Helper untuk autentikasi
-│   ├── models/                       # Folder untuk model database
-│   │   ├── challenges.js             # Model untuk tantangan
-│   │   ├── index.js                  # File untuk inisialisasi model
-│   │   └── users.js                  # Model untuk pengguna
-│   ├── validators/                   # Folder untuk validasi input
-│   │   ├── AuthValidator.js          # Validator untuk autentikasi
-│   │   └── ChallengeValidator.js     # Validator untuk tantangan
-│   ├── config.js                     # File konfigurasi aplikasi
-│   ├── routes.js                     # File routing aplikasi
-│   └── server.js                     # File utama untuk menjalankan server
-├── .env                              # File untuk variabel lingkungan
-├── .gitignore                        # File untuk menentukan file yang diabaikan oleh Git
-├── package-lock.json                 # File kunci dependensi Node.js
-├── package.json                      # File konfigurasi proyek Node.js
-├── README.md                         # Dokumentasi proyek
-└── service-account-key.json          # File kredensial untuk layanan Google
+├── 📦 node_modules/                     # Node.js dependencies folder
+├── 📂 src/                              # Main folder for source code
+│   ├── 🗂️ controllers/                  # Folder for controllers
+│   │   ├── 🔑 AuthController.js         # Controller for authentication
+│   │   └── 🏆 ChallengeController.js    # Controller for challenge features
+│   ├── 🔧 helper/                       # Folder for utility/helper functions
+│   │   └── 🔑 AuthenticationHelper.js   # Helper for authentication
+│   ├── 🏛️ models/                       # Folder for database models
+│   │   ├── 🏆 challenges.js             # Model for challenges
+│   │   ├── 📜 index.js                  # File for initializing models
+│   │   └── 👤 users.js                  # Model for users
+│   ├── ✅ validators/                   # Folder for input validation
+│   │   ├── 🔑 AuthValidator.js          # Validator for authentication
+│   │   └── 🏆 ChallengeValidator.js     # Validator for challenges
+│   ├── ⚙️ config.js                     # Configuration file
+│   ├── 🌐 routes.js                     # Application routing file
+│   └── 🚀 server.js                     # Main file to run the server
+├── 🗒️ .env                              # Environment variable file
+├── ❌ .gitignore                        # File to specify ignored files for Git
+├── 🔒 package-lock.json                 # Lockfile for Node.js dependencies
+├── 📦 package.json                      # Node.js project configuration file
+├── 📄 README.md                         # Project documentation
+└── 🔑 service-account-key.json          # Credential file for Google services
 ```
 
 ## API Endpoints
