@@ -341,12 +341,12 @@ Deploy container menggunakan Cloud Run:
     --add-cloudsql-instances [PROJECT_ID]:[REGION]:[INSTANCE_NAME] \
     --set-env-vars DB_HOST=/cloudsql/[PROJECT_ID]:[REGION]:[INSTANCE_NAME],DB_USER=[DB_USER],DB_PASSWORD=[DB_PASSWORD],DB_NAME=[DB_NAME],GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/iamkey.json,JWT_SECRETKEY=your_jwt_secret_key,JWT_REFRESH_SECRETKEY=your_jwt_refresh_secret_key
     
-    GOOGLE_CLOUD_PROJECT            : nama project anda
-    REGION                          : region anda, misalnya asia-southeast2
-    PROJECT_ID                      : id projek anda
-    add-cloudsql-instances          : koneksi db anda, untuk project ini menggunanakan postgresql
-    INSTANCE_NAME                   : nama instance db postgresql anda
-    GOOGLE_APPLICATION_CREDENTIALS  : key iam anda berupa .json
+    GOOGLE_CLOUD_PROJECT            : nama project kamu
+    REGION                          : region kamu, misalnya asia-southeast2
+    PROJECT_ID                      : id projek kamu
+    add-cloudsql-instances          : koneksi db kamu, untuk project ini menggunanakan postgresql
+    INSTANCE_NAME                   : nama instance db postgresql kamu
+    GOOGLE_APPLICATION_CREDENTIALS  : key iam kamu berupa .json
 
 ### **4. Access the API Backend:**
 Setelah proses deployment selesai, Google cloud run akan memberikan sebuah link yang bisa digunakan untuk backend aplikasi serenity:
